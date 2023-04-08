@@ -60,6 +60,8 @@ def job_and_hire_date(cur, conn):
 # TASK 3: IDENTIFY PROBLEMATIC SALARY DATA
 # Apply JOIN clause to match individual employees
 def problematic_salary(cur, conn):
+    cur.execute('SELECT employees.first_name, employees.last_name FROM employees JOIN jobs ON employees.job_id = jobs.job_id WHERE employees.salary < jobs.min_salary OR employees.salary > jobs.max_salary')
+    return cur.fetchall()
     pass
 
 # TASK 4: VISUALIZATION

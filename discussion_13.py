@@ -66,6 +66,18 @@ def problematic_salary(cur, conn):
 
 # TASK 4: VISUALIZATION
 def visualization_salary_data(cur, conn):
+    cur.execute('SELECT employees.salary, jobs.job_title FROM employees JOIN jobs ON employees.job_id = jobs.job_id')
+    result_set = cur.fetchall()
+    
+    # Extract salary and job_title columns
+    salary_data = [row[0] for row in result_set]
+    job_title_data = [row[1] for row in result_set]
+    
+    # Create a scatter plot of salary vs job title
+    plt.scatter(job_title_data, salary_data)
+    plt.xlabel('Job Title')
+    plt.ylabel('Salary')
+    plt.show()
     pass
 
 class TestDiscussion12(unittest.TestCase):
@@ -101,6 +113,8 @@ def main():
 
     wrong_salary = (problematic_salary(cur, conn))
     print(wrong_salary)
+
+    visualization_salary_data(cur, conn)
 
 if __name__ == "__main__":
     main()
